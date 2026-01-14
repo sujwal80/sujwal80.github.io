@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -10,11 +11,12 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
     <!-- GSAP for smooth camera animations -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
-    
+
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Exo+2:wght@300;500;700&family=Rajdhani:wght@300;500;700&display=swap');
 
-        body, html {
+        body,
+        html {
             margin: 0;
             padding: 0;
             overflow: hidden;
@@ -42,7 +44,8 @@
             width: 100%;
             height: 100%;
             z-index: 10;
-            pointer-events: none; /* Let clicks pass through to 3D where needed */
+            pointer-events: none;
+            /* Let clicks pass through to 3D where needed */
             display: flex;
             flex-direction: column;
             justify-content: center;
@@ -71,7 +74,8 @@
             position: relative;
         }
 
-        .nav-dot:hover, .nav-dot.active {
+        .nav-dot:hover,
+        .nav-dot.active {
             background-color: #00ffcc;
             border-color: #00ffcc;
             box-shadow: 0 0 10px #00ffcc;
@@ -83,7 +87,7 @@
             right: 25px;
             top: 50%;
             transform: translateY(-50%);
-            color: rgba(255,255,255,0.7);
+            color: rgba(255, 255, 255, 0.7);
             font-size: 0.8rem;
             opacity: 0;
             transition: opacity 0.3s ease;
@@ -123,7 +127,7 @@
             max-width: 500px;
             margin-left: 10%;
             border-radius: 0 16px 16px 0;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
             transform: translateX(-50px);
             transition: transform 0.8s cubic-bezier(0.22, 1, 0.36, 1);
         }
@@ -132,7 +136,8 @@
             transform: translateX(0);
         }
 
-        h1, h2 {
+        h1,
+        h2 {
             font-family: 'Rajdhani', sans-serif;
             text-transform: uppercase;
             margin: 0 0 1rem 0;
@@ -188,18 +193,18 @@
         }
 
         .project-item {
-            background: rgba(255,255,255,0.05);
+            background: rgba(255, 255, 255, 0.05);
             padding: 1rem;
             border-radius: 8px;
-            border: 1px solid rgba(255,255,255,0.1);
+            border: 1px solid rgba(255, 255, 255, 0.1);
             transition: 0.3s;
         }
 
         .project-item:hover {
             border-color: #00ffcc;
-            background: rgba(0,255,204,0.05);
+            background: rgba(0, 255, 204, 0.05);
         }
-        
+
         /* Mobile Adjustments */
         @media (max-width: 768px) {
             .content-card {
@@ -207,16 +212,23 @@
                 max-width: 100%;
                 margin-top: 20%;
             }
+
             .nav-dots {
                 right: 20px;
             }
-            h1 { font-size: 2.5rem; }
+
+            h1 {
+                font-size: 2.5rem;
+            }
         }
 
         /* Loading Screen */
         #loader {
             position: fixed;
-            top: 0; left: 0; width: 100%; height: 100%;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
             background: #000;
             z-index: 100;
             display: flex;
@@ -225,6 +237,7 @@
             flex-direction: column;
             transition: opacity 0.5s ease;
         }
+
         .loader-bar {
             width: 200px;
             height: 2px;
@@ -233,20 +246,27 @@
             position: relative;
             overflow: hidden;
         }
+
         .loader-progress {
             position: absolute;
-            left: 0; top: 0; height: 100%; width: 0%;
+            left: 0;
+            top: 0;
+            height: 100%;
+            width: 0%;
             background: #00ffcc;
             transition: width 0.2s;
         }
     </style>
 </head>
+
 <body>
 
     <!-- Loader -->
     <div id="loader">
         <div class="text-2xl font-bold tracking-widest text-[#00ffcc] font-[Rajdhani]">INITIALIZING SYSTEMS</div>
-        <div class="loader-bar"><div class="loader-progress" id="progress"></div></div>
+        <div class="loader-bar">
+            <div class="loader-progress" id="progress"></div>
+        </div>
     </div>
 
     <!-- 3D Canvas -->
@@ -257,12 +277,12 @@
         <div class="nav-dot active" data-index="0" data-label="HOME"></div>
         <div class="nav-dot" data-index="1" data-label="EXPERIENCE"></div>
         <div class="nav-dot" data-index="2" data-label="PROJECTS"></div>
-        <div class="nav-dot" data-index="3" data-label="CONTACT"></div>
+        <!-- <div class="nav-dot" data-index="3" data-label="CONTACT"></div> -->
     </div>
 
     <!-- UI Overlay -->
     <div id="ui-layer">
-        
+
         <!-- Section 1: Introduction -->
         <section class="section active" id="sec-0">
             <div class="content-card">
@@ -283,7 +303,8 @@
                         <div class="absolute -left-[9px] top-0 w-4 h-4 rounded-full bg-[#00ffcc]"></div>
                         <h3 class="text-xl font-bold">Senior Frontend Dev</h3>
                         <p class="text-sm text-[#00ffcc]">TechCorp • 2021 - Present</p>
-                        <p class="text-sm text-gray-400">Led the migration to React and implemented WebGL visualizations for data analytics dashboards.</p>
+                        <p class="text-sm text-gray-400">Led the migration to React and implemented WebGL visualizations
+                            for data analytics dashboards.</p>
                     </div>
                     <div class="border-l-2 border-white/20 pl-4 relative">
                         <div class="absolute -left-[9px] top-0 w-4 h-4 rounded-full bg-white"></div>
@@ -318,12 +339,13 @@
         </section>
 
         <!-- Section 4: Contact -->
-        <section class="section" id="sec-3">
+        <!-- <section class="section" id="sec-3">
             <div class="content-card">
                 <h2>Initialize Contact</h2>
                 <p>Ready to start a new mission? Frequency open.</p>
                 <div class="flex flex-col gap-4 mt-4">
-                    <a href="mailto:hello@alex.dev" class="flex items-center gap-3 text-white hover:text-[#00ffcc] transition-colors">
+                    <a href="mailto:hello@alex.dev"
+                        class="flex items-center gap-3 text-white hover:text-[#00ffcc] transition-colors">
                         <span class="w-8 h-8 rounded border border-white/30 flex items-center justify-center">@</span>
                         hello@alex.dev
                     </a>
@@ -337,7 +359,7 @@
                     </a>
                 </div>
             </div>
-        </section>
+        </section> -->
     </div>
 
     <script>
@@ -361,16 +383,16 @@
         scene.add(pointLight);
 
         // --- 3. OBJECTS (THE HINTS) ---
-        
+
         // GLOBAL: Starfield
         const starGeometry = new THREE.BufferGeometry();
         const starCount = 5000;
         const posArray = new Float32Array(starCount * 3);
-        
-        for(let i = 0; i < starCount * 3; i++) {
+
+        for (let i = 0; i < starCount * 3; i++) {
             posArray[i] = (Math.random() - 0.5) * 200; // Spread stars
         }
-        
+
         starGeometry.setAttribute('position', new THREE.BufferAttribute(posArray, 3));
         const starMaterial = new THREE.PointsMaterial({
             size: 0.15,
@@ -384,8 +406,8 @@
         // SECTION 1 OBJECT: The Core (Introduction)
         // A complex wireframe geometry
         const coreGeo = new THREE.IcosahedronGeometry(2, 1);
-        const coreMat = new THREE.MeshBasicMaterial({ 
-            color: 0x00ffcc, 
+        const coreMat = new THREE.MeshBasicMaterial({
+            color: 0x00ffcc,
             wireframe: true,
             transparent: true,
             opacity: 0.3
@@ -404,9 +426,9 @@
         // A series of rings
         const ringsGroup = new THREE.Group();
         ringsGroup.position.set(40, -5, -40); // Location of Section 2
-        
-        for(let i=0; i<5; i++) {
-            const ringGeo = new THREE.TorusGeometry(3 + (i*1.5), 0.05, 16, 100);
+
+        for (let i = 0; i < 5; i++) {
+            const ringGeo = new THREE.TorusGeometry(3 + (i * 1.5), 0.05, 16, 100);
             const ringMat = new THREE.MeshBasicMaterial({ color: 0x4444ff, transparent: true, opacity: 0.4 });
             const ring = new THREE.Mesh(ringGeo, ringMat);
             ring.rotation.x = Math.random() * Math.PI;
@@ -426,20 +448,20 @@
             new THREE.OctahedronGeometry(1)
         ];
 
-        for(let i=0; i<10; i++) {
-            const mat = new THREE.MeshPhongMaterial({ 
+        for (let i = 0; i < 10; i++) {
+            const mat = new THREE.MeshPhongMaterial({
                 color: Math.random() > 0.5 ? 0x00ffcc : 0xff00ff,
                 flatShading: true,
                 shininess: 100
             });
-            const mesh = new THREE.Mesh(geometries[Math.floor(Math.random()*geometries.length)], mat);
-            
+            const mesh = new THREE.Mesh(geometries[Math.floor(Math.random() * geometries.length)], mat);
+
             mesh.position.set(
                 (Math.random() - 0.5) * 15,
                 (Math.random() - 0.5) * 15,
                 (Math.random() - 0.5) * 10
             );
-            
+
             projectsGroup.add(mesh);
         }
         scene.add(projectsGroup);
@@ -461,15 +483,15 @@
         // Particles around beacon
         const partGeo = new THREE.BufferGeometry();
         const partCount = 200;
-        const pArr = new Float32Array(partCount*3);
-        for(let i=0; i<partCount*3; i++) {
+        const pArr = new Float32Array(partCount * 3);
+        for (let i = 0; i < partCount * 3; i++) {
             pArr[i] = (Math.random() - 0.5) * 10;
         }
         partGeo.setAttribute('position', new THREE.BufferAttribute(pArr, 3));
-        const partMat = new THREE.PointsMaterial({size:0.1, color: 0xffffff});
+        const partMat = new THREE.PointsMaterial({ size: 0.1, color: 0xffffff });
         const beaconParts = new THREE.Points(partGeo, partMat);
         contactGroup.add(beaconParts);
-        
+
         scene.add(contactGroup);
 
         // --- 4. NAVIGATION STATE & LOGIC ---
@@ -501,7 +523,7 @@
             document.getElementById(`sec-${index}`).classList.add('active');
         }
 
-        window.goToSection = function(index) {
+        window.goToSection = function (index) {
             if (isAnimating || index === currentSection) return;
             isAnimating = true;
             currentSection = index;
@@ -522,8 +544,8 @@
 
             // Animate Camera Rotation (using a dummy object to lerp LookAt)
             // We tween a temporary object's position, and in the update loop make camera look at it
-            const currentLook = { x: 0, y:0, z:0 }; // Value doesn't matter, we need start/end logic
-            
+            const currentLook = { x: 0, y: 0, z: 0 }; // Value doesn't matter, we need start/end logic
+
             // Simple way: Animate the controls or manually tween a target vector
             // Let's tween a "focusPoint" vector
             gsap.to(focusPoint, {
@@ -554,13 +576,13 @@
 
         // Wheel Scroll Navigation
         window.addEventListener('wheel', (e) => {
-            if(isAnimating) return;
-            if(e.deltaY > 0) {
+            if (isAnimating) return;
+            if (e.deltaY > 0) {
                 // Next
-                if(currentSection < stops.length - 1) goToSection(currentSection + 1);
+                if (currentSection < stops.length - 1) goToSection(currentSection + 1);
             } else {
                 // Prev
-                if(currentSection > 0) goToSection(currentSection - 1);
+                if (currentSection > 0) goToSection(currentSection - 1);
             }
         });
 
@@ -589,7 +611,7 @@
 
             // 3. Animate Section 2 Object (Rings)
             ringsGroup.children.forEach((ring, i) => {
-                ring.rotation.x += 0.005 * (i+1);
+                ring.rotation.x += 0.005 * (i + 1);
                 ring.rotation.y += 0.01;
             });
 
@@ -605,7 +627,7 @@
             beaconParts.rotation.y = time * 0.1;
 
             // 6. Subtle Camera Parallax (only if not moving sections)
-            if(!isAnimating) {
+            if (!isAnimating) {
                 camera.position.x += (mouseX * 0.5 - (camera.position.x - stops[currentSection].pos.x)) * 0.05;
                 camera.position.y += (-mouseY * 0.5 - (camera.position.y - stops[currentSection].pos.y)) * 0.05;
                 // Force lookAt update to keep focus steady during parallax
@@ -637,4 +659,5 @@
 
     </script>
 </body>
+
 </html>

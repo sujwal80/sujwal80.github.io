@@ -36,15 +36,15 @@ Array(250).fill().forEach(addStar);
 const geometry = new THREE.IcosahedronGeometry(10, 1);
 
 // Material 1: The solid inner shape
-const materialSolid = new THREE.MeshPhongMaterial({ 
-    color: 0x000000, 
+const materialSolid = new THREE.MeshPhongMaterial({
+    color: 0x000000,
     shininess: 100,
     flatShading: true
 });
 
 // Material 2: The wireframe outer
-const materialWire = new THREE.MeshBasicMaterial({ 
-    color: 0x00f3ff, 
+const materialWire = new THREE.MeshBasicMaterial({
+    color: 0x00f3ff,
     wireframe: true,
     transparent: true,
     opacity: 0.3
@@ -61,7 +61,7 @@ heroGroup.add(heroWire);
 scene.add(heroGroup);
 
 // Position slightly to the right
-if(window.innerWidth > 768) {
+if (window.innerWidth > 768) {
     heroGroup.position.set(15, 0, -10);
 } else {
     heroGroup.position.set(0, 0, -20);
@@ -69,18 +69,18 @@ if(window.innerWidth > 768) {
 
 // 3. Floating Particles (Toruses)
 const particleGroup = new THREE.Group();
-for(let i=0; i<20; i++) {
+for (let i = 0; i < 20; i++) {
     const geo = new THREE.TorusGeometry(2, 0.2, 8, 20);
     const mat = new THREE.MeshBasicMaterial({ color: 0xbd00ff, wireframe: true, transparent: true, opacity: 0.2 });
     const mesh = new THREE.Mesh(geo, mat);
-    
+
     mesh.position.x = (Math.random() - 0.5) * 80;
     mesh.position.y = (Math.random() - 0.5) * 80;
     mesh.position.z = (Math.random() - 0.5) * 80;
-    
+
     mesh.rotation.x = Math.random() * Math.PI;
     mesh.rotation.y = Math.random() * Math.PI;
-    
+
     particleGroup.add(mesh);
 }
 scene.add(particleGroup);
@@ -103,7 +103,7 @@ scene.add(pointLight, ambientLight, spotLight);
 // Scroll Animation
 function moveCamera() {
     const t = document.body.getBoundingClientRect().top;
-    
+
     // Rotate hero object based on scroll
     heroGroup.rotation.x += 0.01;
     heroGroup.rotation.y += 0.01;
@@ -113,7 +113,7 @@ function moveCamera() {
     camera.position.z = t * -0.01 + 30;
     camera.position.y = t * -0.0002;
     camera.position.x = t * -0.0002;
-    
+
     // Parallax effect for particles
     particleGroup.rotation.y = t * 0.0005;
 }
@@ -166,21 +166,21 @@ window.addEventListener('resize', () => {
     camera.aspect = window.innerWidth / window.innerHeight;
     camera.updateProjectionMatrix();
     renderer.setSize(window.innerWidth, window.innerHeight);
-    
+
     // Reposition hero based on screen size
-    if(window.innerWidth > 768) {
+    if (window.innerWidth > 768) {
         heroGroup.position.set(15, 0, -10);
     } else {
         heroGroup.position.set(0, 0, -20);
     }
 });
 
-export class Portfolio3D {
+class Portfolio3D {
     constructor() {
         this.container = document.getElementById('canvas-container');
         this.currentSection = 0;
         this.isAnimating = false;
-        
+
         // Navigation Coordinates (Position, LookAt)
         this.stops = [
             { pos: { x: 0, y: 0, z: 5 }, lookAt: { x: 5, y: 0, z: -10 } },
@@ -192,7 +192,7 @@ export class Portfolio3D {
         // Interaction State
         this.mouseX = 0;
         this.mouseY = 0;
-        
+
         // Dynamic Objects for Animation
         this.animatedObjects = {
             stars: null,
@@ -203,10 +203,10 @@ export class Portfolio3D {
             beacon: null,
             beaconParts: null
         };
-        
+
         this.focusPoint = new THREE.Vector3(
-            this.stops[0].lookAt.x, 
-            this.stops[0].lookAt.y, 
+            this.stops[0].lookAt.x,
+            this.stops[0].lookAt.y,
             this.stops[0].lookAt.z
         );
     }
@@ -249,7 +249,7 @@ export class Portfolio3D {
         const starGeo = new THREE.BufferGeometry();
         const starCount = 5000;
         const posArray = new Float32Array(starCount * 3);
-        for(let i = 0; i < starCount * 3; i++) {
+        for (let i = 0; i < starCount * 3; i++) {
             posArray[i] = (Math.random() - 0.5) * 200;
         }
         starGeo.setAttribute('position', new THREE.BufferAttribute(posArray, 3));
@@ -272,8 +272,8 @@ export class Portfolio3D {
         // 3. The Rings (Section 2)
         const ringsGroup = new THREE.Group();
         ringsGroup.position.set(40, -5, -40);
-        for(let i=0; i<5; i++) {
-            const ringGeo = new THREE.TorusGeometry(3 + (i*1.5), 0.05, 16, 100);
+        for (let i = 0; i < 5; i++) {
+            const ringGeo = new THREE.TorusGeometry(3 + (i * 1.5), 0.05, 16, 100);
             const ringMat = new THREE.MeshBasicMaterial({ color: 0x4444ff, transparent: true, opacity: 0.4 });
             const ring = new THREE.Mesh(ringGeo, ringMat);
             ring.rotation.x = Math.random() * Math.PI;
@@ -291,13 +291,13 @@ export class Portfolio3D {
             new THREE.ConeGeometry(1, 2, 4),
             new THREE.OctahedronGeometry(1)
         ];
-        for(let i=0; i<10; i++) {
-            const mat = new THREE.MeshPhongMaterial({ 
+        for (let i = 0; i < 10; i++) {
+            const mat = new THREE.MeshPhongMaterial({
                 color: Math.random() > 0.5 ? 0x00ffcc : 0xff00ff,
                 flatShading: true,
                 shininess: 100
             });
-            const mesh = new THREE.Mesh(geometries[Math.floor(Math.random()*geometries.length)], mat);
+            const mesh = new THREE.Mesh(geometries[Math.floor(Math.random() * geometries.length)], mat);
             mesh.position.set(
                 (Math.random() - 0.5) * 15,
                 (Math.random() - 0.5) * 15,
@@ -318,9 +318,9 @@ export class Portfolio3D {
 
         const partGeo = new THREE.BufferGeometry();
         const pArr = new Float32Array(600);
-        for(let i=0; i<600; i++) pArr[i] = (Math.random() - 0.5) * 10;
+        for (let i = 0; i < 600; i++) pArr[i] = (Math.random() - 0.5) * 10;
         partGeo.setAttribute('position', new THREE.BufferAttribute(pArr, 3));
-        const partMat = new THREE.PointsMaterial({size:0.1, color: 0xffffff});
+        const partMat = new THREE.PointsMaterial({ size: 0.1, color: 0xffffff });
         this.animatedObjects.beaconParts = new THREE.Points(partGeo, partMat);
         contactGroup.add(this.animatedObjects.beaconParts);
         this.scene.add(contactGroup);
@@ -342,11 +342,11 @@ export class Portfolio3D {
 
         // Wheel Navigation
         window.addEventListener('wheel', (e) => {
-            if(this.isAnimating) return;
-            if(e.deltaY > 0) {
-                if(this.currentSection < this.stops.length - 1) this.goToSection(this.currentSection + 1);
+            if (this.isAnimating) return;
+            if (e.deltaY > 0) {
+                if (this.currentSection < this.stops.length - 1) this.goToSection(this.currentSection + 1);
             } else {
-                if(this.currentSection > 0) this.goToSection(this.currentSection - 1);
+                if (this.currentSection > 0) this.goToSection(this.currentSection - 1);
             }
         });
 
@@ -409,20 +409,20 @@ export class Portfolio3D {
 
     animate() {
         requestAnimationFrame(() => this.animate());
-        
+
         const time = this.clock.getElapsedTime();
 
         // 1. Object Animations
-        if(this.animatedObjects.stars) this.animatedObjects.stars.rotation.y = time * 0.02;
+        if (this.animatedObjects.stars) this.animatedObjects.stars.rotation.y = time * 0.02;
 
-        if(this.animatedObjects.core) {
+        if (this.animatedObjects.core) {
             this.animatedObjects.core.rotation.x = time * 0.2;
             this.animatedObjects.core.rotation.y = time * 0.3;
             this.animatedObjects.innerCore.rotation.x -= 0.02;
         }
 
         this.animatedObjects.rings.forEach((ring, i) => {
-            ring.rotation.x += 0.005 * (i+1);
+            ring.rotation.x += 0.005 * (i + 1);
             ring.rotation.y += 0.01;
         });
 
@@ -432,13 +432,13 @@ export class Portfolio3D {
             mesh.position.y += Math.sin(time + i) * 0.01;
         });
 
-        if(this.animatedObjects.beacon) {
+        if (this.animatedObjects.beacon) {
             this.animatedObjects.beacon.scale.setScalar(1 + Math.sin(time * 2) * 0.05);
             this.animatedObjects.beaconParts.rotation.y = time * 0.1;
         }
 
         // 2. Parallax (when not transitioning)
-        if(!this.isAnimating) {
+        if (!this.isAnimating) {
             const targetPos = this.stops[this.currentSection].pos;
             this.camera.position.x += (this.mouseX * 0.5 - (this.camera.position.x - targetPos.x)) * 0.05;
             this.camera.position.y += (-this.mouseY * 0.5 - (this.camera.position.y - targetPos.y)) * 0.05;
